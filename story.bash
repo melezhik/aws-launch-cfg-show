@@ -7,7 +7,7 @@ aws autoscaling describe-launch-configurations --launch-configuration-name $name
   END {
     #print $json;
     $data = decode_json($json);
-    $i = $data->{LaunchConfigurations}->[0];
+    $i = $data->{LaunchConfigurations}->[0] or die "launch configuration not found";
     $name = $i->{LaunchConfigurationName};
     $instance_monitoring = $i->{InstanceMonitoring}->{Enabled} ? "YES" : "NO";
     $image_id = $i->{ImageId};
